@@ -1,0 +1,33 @@
+<template>
+  <div class="home">
+    <h1>Home</h1>
+    <p>{{personOne.name}} </p>
+    <button @click="changeOne">Change one</button>
+    <hr>
+    <p>{{personTwo.name}} </p>
+    <button  @click="changeTwo"> Change Two</button>
+
+  </div>
+</template>
+
+<script>
+import { reactive, ref } from 'vue';
+// @ is an alias to /src
+
+export default {
+setup(){
+ 
+  console.log("hello");
+  let personOne =ref({"name":"Aung Aung","age":"20"});
+  let changeOne=()=>{
+    personOne.value.name="Chage Mg Mg"; //this is different of between reactive and ref
+  }
+  let personTwo=reactive({"name":"Joe","age":"29"})
+  let changeTwo=()=>{
+    personTwo.name="Ronaldo" //this is different of between reactive and ref and the reactive can run array or obj values not work in string
+  }
+  return {personOne,changeOne,personTwo,changeTwo}
+}
+  
+}
+</script>
