@@ -1,19 +1,12 @@
-# vuecomposition_api
+<details>
 
-## Project setup
-```
-npm install
-```
+#this is vue composition api project
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Project Setup cli
+### npm install -g @vue/cli
+### vue -V
+### vue create smalllettername
 
-### Compiles and minifies for production
-```
-npm run build
-```
+##vetur package in vs code
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+</details>
