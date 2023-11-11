@@ -1,46 +1,59 @@
 <template>
   <div class="home">
-    <input type="text" v-model="search">
-    <p>{{search}} </p>
-   <div class="" v-for="name in filterNames" :key="name">
-    {{name}}
+    <div  v-if= "posts.length>0" class="layout"> 
+         <div class="">
+          <PostList :posts="posts"></PostList>
+         </div>
+       <div class="">
+          <TagCloud :posts="posts"></TagCloud>
+       </div>
+  </div>
+  <div class="" v-else>
+    <Spinner></Spinner>
+  </div>
+ 
+   <div class="" v-if="error">
+    {{error}}
+
    </div>
-   <hr>
-   
   </div>
-  <div class="" v-if="showPost">
-     <PostList :posts="posts"></PostList>
-  </div>
-  <button @click="showPost =! showPost"> shoe/hide component </button>
-  <button @click="posts.pop()">delete</button>
+  
 </template>
 
 <script>
-import { computed, ref } from 'vue'
 import PostList from '@/components/PostList.vue'
+
+import getPosts from '../composable/getPosts'
+import Spinner from '../components/Spinner.vue'
+import TagCloud from '../components/TagCloud.vue'
+
 
 
 
 export default {
-  components: { PostList },
+  components: {Spinner, PostList ,TagCloud},
 setup(){
-  let search=ref("")
-  let names=ref(["aung aung",'mg mg','kyaw kyaw','tun tun']);
-  let showPost=ref(true)
- let posts = ref([
-    {title:"title one",body:"body one ",id:"1"},
-     {title:"title two",body:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore, fuga iusto alias illo nostrum iste quos ea dolor, veritatis, voluptate perferendis quasi! Obcaecati ipsam a veritatis excepturi deleniti ab atque? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore, fuga iusto alias illo nostrum iste quos ea dolor, veritatis, voluptate perferendis quasi! Obcaecati ipsam a veritatis excepturi deleniti ab atque?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore, fuga iusto alias illo nostrum iste quos ea dolor, veritatis, voluptate perferendis quasi! Obcaecati ipsam a veritatis excepturi deleniti ab atque?",id:"2"},
-      {title:"title three",body:"body three",id:"3"},
-   ])
-  let filterNames=computed(()=>{
-    return names.value.filter((name)=>{
-      return name.includes(search.value)
-    })
-  });
-  return {names,search,filterNames,posts,showPost}
+
+      let {posts,error,load} =getPosts()
+  
+ 
+  load();
+  return {posts,error}
    
   
 }
   
 }
 </script>
+<style>
+.home{
+  max-width: 1400px;
+  margin:0 auto;
+  padding: 10px;
+}
+.layout{
+  display: flex;
+  grid-template-columns:3fr 1fr;
+  gap: 200px;
+}
+</style>
